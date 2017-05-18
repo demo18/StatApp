@@ -1,0 +1,83 @@
+<!--
+  Generated template for the SessionList page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <div class="light">
+    <img src="./assets/navbar.png" alt="">
+  </div>
+
+  <ion-navbar>
+    <ion-buttons end>
+      <button ion-button="" item-right=""  (click)="presentActionSheet(session)"><ion-icon name="more"></ion-icon></button>
+    </ion-buttons>
+    
+    <ion-title> <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="session.date"></ion-datetime></ion-title>
+  </ion-navbar>
+
+  <div class="stitle">LISTE DES EXERCICES</div>
+
+</ion-header>
+
+
+<ion-content padding>
+
+ <ion-item>
+    <ion-label>Date</ion-label>
+    <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="session.date"></ion-datetime>
+  </ion-item>
+  
+  <ion-item >
+    <ion-label>Contexte</ion-label>
+    <ion-select [(ngModel)]="session.context" multiple="false">
+      <ion-option>Match</ion-option>
+      <ion-option>Training Match</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-list>
+    <ion-list-header>
+      <ion-title>Stats</ion-title>
+    </ion-list-header>
+    <ion-item *ngFor="let stat of stats">{{stat.player}} - {{stat.criteria}} - {{stat.value}}</ion-item>
+  </ion-list>
+
+ <ion-card>
+ <ion-card-header>
+   Saisie
+ </ion-card-header>
+ <ion-card-content>
+ <ion-segment [(ngModel)]="relationship" color="primary">
+    <ion-segment-button value="friends" (ionSelect)="GoPlayerPage()">
+      Par Joueur
+    </ion-segment-button>
+    <ion-segment-button value="enemies" (ionSelect)="GoCriteriaPage()">
+      Par Critere
+    </ion-segment-button>
+  </ion-segment>
+  
+  <ion-list>
+    <button ion-item *ngFor="let player of players" (click)="playerTapped($event, player)">
+      <ion-icon name="{{player.icon}}" item-left></ion-icon>
+      {{player.title}}
+      <div class="item-note" item-right>
+        {{player.note}}
+      </div>
+    </button>
+  </ion-list>
+ </ion-card-content>
+ </ion-card>
+
+  <!--<ion-tabs>
+    <ion-tab [root]="tab1Root" tabTitle="Par critere" tabIcon="home"></ion-tab>
+    <ion-tab [root]="tab3Root" tabTitle="Par Joueur" tabIcon="contacts"></ion-tab>
+</ion-tabs>-->
+
+  <ion-fab bottom right>
+   <button ion-fab (click)="GoStatPage()">+</button>
+ </ion-fab>
+
+</ion-content>

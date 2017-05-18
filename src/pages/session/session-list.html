@@ -1,0 +1,40 @@
+<!--
+  Generated template for the SessionList page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <div class="light">
+    <img src="./assets/navbar.png" alt="">
+  </div>
+
+  <ion-navbar>
+    <ion-title text-uppercase>{{type}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-list>
+    <button ion-item *ngFor="let session of sessions" (click)="GoSessionPage(session)"><ion-icon name="information-circle" item-right></ion-icon>
+      <h2>{{session.date | date:'dd/MM/yyyy'}}</h2>
+      <h3>uuu</h3>
+    </button>
+  </ion-list>
+
+ <ion-fab bottom right>
+   <button ion-fab (click)="newSession()">+</button>
+ </ion-fab>
+
+ <div [hidden]="true">
+   <ion-select multiple="false">
+      <ion-option>Joueur 1</ion-option>
+      <ion-option>Joueur 2</ion-option>
+   </ion-select>
+ </div>
+
+</ion-content>
