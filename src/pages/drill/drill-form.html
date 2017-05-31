@@ -35,12 +35,21 @@
 
  
   <div *ngIf="saisie =='player'">
+
     <ion-list>
       <ion-list-header>
         <ion-title>player</ion-title>
       </ion-list-header>
-      <ion-item *ngFor="let player of players; let i=index" (click)="toggleGroup(i)">{{player}} - {{i}}</ion-item>
-      <ion-item *ngIf="isGroupShown(i)">test1</ion-item>
+
+      <div *ngFor="let player of players; let i=index">
+        <ion-item (click)="toggleGroup(i)">{{player}} - {{i}}<ion-icon [name]="isGroupShown(i) ? 'md-arrow-dropdown' : 'md-arrow-dropright'" item-right></ion-icon>
+        </ion-item>
+        <div *ngIf="isGroupShown(i)">
+            <ion-item>test1</ion-item>
+        </div>
+
+      </div>
+
     </ion-list>
   </div>
 

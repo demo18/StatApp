@@ -25,27 +25,30 @@ export class DrillPage {
   stats:Stat[] = [];
   saisie = 'player';
   players:string[] = [];
+  shownGroups:boolean[] = [];
 
   constructor(private SessionServ:SessionService,public navCtrl: NavController, public navParams: NavParams,public actionSheetCtrl: ActionSheetController) {
     this.session = navParams.get('session');
     this.drill = navParams.get('drill');
     this.players = this.session.players;
-    console.log("players::"+this.players);
+    for (var i=0; i<this.players.length; i++) {
+    this.shownGroups[i] = false;
+    }
   }
 
   tab1Root = PlayerListPage;
   tab2Root = PlayerListPage;
-  shownGroup = null;
+
 
   toggleGroup(group) {
     if (this.isGroupShown(group)) {
-        this.shownGroup = null;
+        this.shownGroups[group] = false;
     } else {
-        this.shownGroup = group;
+        this.shownGroups[group] = true;
     }
   };
   isGroupShown(group) {
-      return this.shownGroup === group;
+      return this.shownGroups[group];
   };
   
   
