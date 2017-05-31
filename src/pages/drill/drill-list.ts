@@ -3,6 +3,7 @@ import { NavController, NavParams, AlertController,ActionSheetController } from 
 import { SessionService } from '../../providers/session-service';
 import { Session } from '../session/session';
 import { SessionPage } from '../session/session-form';
+import { DrillPage } from '../drill/drill-form';
 import { Drill } from './drill';
 
 
@@ -24,16 +25,15 @@ export class DrillListPage {
 
   constructor(private alertCtrl: AlertController,private SessionServ:SessionService,public navCtrl: NavController, public navParams: NavParams,public actionSheetCtrl: ActionSheetController) {
     let param = navParams.get('session');
-    console.log(param);
+    // si new session
     if(param==0){
       this.session = new Session(this.date,"training",0,[],[]);
+      this.session.players = navParams.get('players');
     }
     else{
       this.session = navParams.get('session');
     }
     this.SessionServ.addDrill(this.session,new Drill(1,'u','u'));
-    console.log(this.session);
-    // this.drills = this.session.drills;
   }
 
 
@@ -45,7 +45,7 @@ export class DrillListPage {
          text: 'Enregistrer',
          icon:'checkmark',
          handler: () => {
-           this.saveSession();
+           this.saveDrill();
          }
        },
        {
@@ -69,16 +69,15 @@ export class DrillListPage {
    actionSheet.present();
  }
 
-  saveSession(){
-    //NEW SESSION
-    if(this.session.localID==0){
-      this.session.localID = this.SessionServ.sessions.length+1;
-      this.SessionServ.addSession(this.session);
-    }
-    //EXISTING SEESION
-    else{
-      this.SessionServ.updateSession(this.session);
-    } 
+  saveDrill(){
+    
+  }
+
+  GoDrillPage(session:any,drill:any){
+    this.navCtrl.push(DrillPage, {
+       session: session,
+       drill:drill
+    });
   }
 
   newDrill() {
@@ -100,7 +99,7 @@ export class DrillListPage {
     alert.addButton({
       text: 'Ok',
       handler: data => {
-       
+        this.GoDrillPage(this.session,data);
       }
     });
     alert.present();

@@ -16,6 +16,7 @@ import { PlayerListPage } from '../pages/player-list/player-list';
 //import { CriteriaListPage } from '../pages/criteria-list/criteria-list';
 import { SessionListPage } from '../pages/session/session-list';
 import { DrillListPage } from '../pages/drill/drill-list';
+import { DrillPage } from '../pages/drill/drill-form';
 import { SessionPage } from '../pages/session/session-form';
 import { SessionService } from '../providers/session-service';
 import { StatFormPage } from '../pages/stat/stat-form';
@@ -29,7 +30,7 @@ import { StatFormPage } from '../pages/stat/stat-form';
     TabsPage,
     ItemDetailsPage,
     PlayerListPage,
-   // CriteriaListPage,
+    DrillPage,
     SessionListPage,
     SessionPage,
     StatFormPage,
@@ -50,7 +51,7 @@ import { StatFormPage } from '../pages/stat/stat-form';
     TabsPage,
     ItemDetailsPage,
     PlayerListPage,
-   // CriteriaListPage,
+    DrillPage,
     SessionListPage,
     DrillListPage,
     SessionPage,

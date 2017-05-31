@@ -35,9 +35,10 @@ export class SessionListPage {
        
   }
 
-  GoSessionPage(session:any){
+  GoSessionPage(session:any,players:any[]){
     this.navCtrl.push(DrillListPage, {
-       session: session
+       session: session,
+       players: players
     });
   }
 
@@ -47,20 +48,23 @@ export class SessionListPage {
     alert.addInput({
       type: 'checkbox',
       label: 'Joueur 1',
-      value: 'Joueur 1'
+      value: 'Joueur 1',
+      checked: true
     });
 
     alert.addInput({
       type: 'checkbox',
       label: 'Joueur 2',
-      value: 'Joueur 2'
+      value: 'Joueur 2',
+      checked: true
     });
 
     alert.addButton('Cancel');
     alert.addButton({
       text: 'Ok',
       handler: data => {
-       this.GoSessionPage(0);
+       this.GoSessionPage(0,data);
+       console.log(data);
       }
     });
     alert.present();

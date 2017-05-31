@@ -26,9 +26,9 @@ export class SessionPage {
 
   constructor(private SessionServ:SessionService,public navCtrl: NavController, public navParams: NavParams,public actionSheetCtrl: ActionSheetController) {
     let param = navParams.get('session');
-    console.log(param);
     if(param==0){
       this.session = new Session(this.date,this.context[0],0,[],[]);
+      this.session.players = navParams.get('players');
     }
     else{
       this.session = navParams.get('session');

@@ -13,20 +13,7 @@ $font-path: "../assets/fonts";
 // http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
 
 
-$toolbar-background: #c60001;
 
-img{
-    height: 70px;
-}
-
-.light{
-  background-color: #fcfcfc;
-}
-.stitle{
-  background-color: #B00606;
-  color: white;
-  padding: 5px 0px 5px 15px;
-}
 
 //$background-color: #c60001;
 
@@ -91,3 +78,29 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+
+$toolbar-background: #c60001;
+
+
+$segment-button-md-border-bottom-width : 0px;
+$segment-button-md-height : 28px;
+$segment-button-md-opacity : 1;
+$segment-button-md-text-color-activated:white;
+$segment-button-md-line-height:2;
+$segment-button-md-font-size:1.4 rem;
+
+
+img{
+    height: 70px;
+}
+
+.light{
+  background-color: #fcfcfc;
+}
+.stitle{
+  background-color: #B00606;
+  color: white;
+  padding: 5px 0px 5px 15px;
+  height:28px;
+}
+

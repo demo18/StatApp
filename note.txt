@@ -1,0 +1,9 @@
+DEPLOIEMENT
+
+ionic build android --prod --release
+
+avec un keystore créé
+dans platforms\android
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore StatApp.keystore build\outputs\apk\android-release-unsigned.apk StatApp
+
+C:\Users\demo\AppData\Local\Android\sdk\build-tools\25.0.3\zipalign -v 4 build\outputs\apk\android-release-unsigned.apk build\outputs\apk\StatApp.apk

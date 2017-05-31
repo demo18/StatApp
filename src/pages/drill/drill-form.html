@@ -1,0 +1,60 @@
+<!--
+  Generated template for the SessionList page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <div class="light">
+    <img src="./assets/navbar.png" alt="">
+  </div>
+
+  <ion-navbar>
+    <ion-buttons end>
+      <button ion-button="" item-right=""  (click)="presentActionSheet(session)"><ion-icon name="more"></ion-icon></button>
+    </ion-buttons>
+    
+    <ion-title> {{drill}} - {{session.date | date:'dd/MM/yyyy'}}</ion-title>
+  </ion-navbar>
+
+  
+  <ion-segment [(ngModel)]="saisie">
+    <ion-segment-button name="player" value="player" >
+      Par Joueur
+    </ion-segment-button>
+    <ion-segment-button name="criteria" value="criteria" >
+      Par Critere
+    </ion-segment-button>
+  </ion-segment>
+
+</ion-header>
+
+
+<ion-content >
+
+ 
+  <div *ngIf="saisie =='player'">
+    <ion-list>
+      <ion-list-header>
+        <ion-title>player</ion-title>
+      </ion-list-header>
+      <ion-item *ngFor="let player of players; let i=index" (click)="toggleGroup(i)">{{player}} - {{i}}</ion-item>
+      <ion-item *ngIf="isGroupShown(i)">test1</ion-item>
+    </ion-list>
+  </div>
+
+  <div *ngIf="saisie=='criteria'">
+    <ion-list>
+      <ion-list-header>
+        <ion-title>Stats</ion-title>
+      </ion-list-header>
+      <ion-item *ngFor="let stat of stats">{{stat.player}} - {{stat.criteria}} - {{stat.value}}</ion-item>
+    </ion-list>
+  </div>
+
+  <ion-fab bottom right>
+   <button ion-fab (click)="GoStatPage()">+</button>
+ </ion-fab>
+
+</ion-content>
