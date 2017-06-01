@@ -1,5 +1,6 @@
 export class Criteria {
   constructor(
-    public title?: string
+    public name:string,
+    public type:string,
   ) {  }
 }

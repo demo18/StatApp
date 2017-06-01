@@ -1,7 +1,9 @@
+import {Criteria} from'../criteria/criteria';
+
 export class Stat {
   constructor(
     public player: string,
-    public criteria: string,
+    public criteria: Criteria,
     public localID: number,
     public sessionID: number,
     public value,

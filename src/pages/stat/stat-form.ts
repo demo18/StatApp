@@ -26,18 +26,6 @@ value = 0;
 
 
 
-stat = new Stat(this.players[0],this.criterias[0],this.session.stats.length,this.session.localID,0);
 
-save(){
-   this.SessionServ.addStat(this.session,this.stat);
-   console.log(this.session,this.stat);
-
-   //back
-   //this.navCtrl.pop();
-   this.navCtrl.push(SessionPage, {
-       session: this.session
-      // name: "Carl"
-    });
-  }
 
 }

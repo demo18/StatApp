@@ -44,10 +44,10 @@ export class SessionService {
     this.save();
   }
   addDrill(session:Session,drill:Drill){
-    console.log(session);
-    // this.sessions[session.localID-1].drills.push(drill);
-    // this.sessionsObserver.next(this.sessions);
-    // this.save();
+    drill.localID = this.sessions[session.localID-1].drills.length+1;  
+    this.sessions[session.localID-1].drills.push(drill);
+    this.sessionsObserver.next(this.sessions);
+    this.save();
   }
   getSessions(){
     return this.sessions;
@@ -57,6 +57,17 @@ export class SessionService {
     this.sessions.splice(session.localID-1,1);
     this.sessionsObserver.next(this.sessions);
     this.save();
+  }
+  saveSession(session:Session){
+    //NEW SESSION
+    if(session.localID==0){
+      session.localID = this.sessions.length+1;
+      this.addSession(session);
+    }
+    //EXISTING SEESION
+    else{
+      this.updateSession(session);
+    } 
   }
   save(){
     this.storage.ready().then(() => {

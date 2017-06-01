@@ -25,11 +25,14 @@ export class SessionPage {
   context = ['Match', 'Training Match'];
 
   constructor(private SessionServ:SessionService,public navCtrl: NavController, public navParams: NavParams,public actionSheetCtrl: ActionSheetController) {
-    let param = navParams.get('session');
-    if(param==0){
+    //view var init
+    let test = navParams.get('session');
+      //NEW SESSION
+    if(test==0){
       this.session = new Session(this.date,this.context[0],0,[],[]);
       this.session.players = navParams.get('players');
     }
+      //EXISTING SEESION
     else{
       this.session = navParams.get('session');
       this.stats = this.session.stats;

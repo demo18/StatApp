@@ -33,7 +33,7 @@ export class DrillListPage {
     else{
       this.session = navParams.get('session');
     }
-    this.SessionServ.addDrill(this.session,new Drill(1,'u','u'));
+    this.drills = this.session.drills;
   }
 
 
@@ -45,7 +45,7 @@ export class DrillListPage {
          text: 'Enregistrer',
          icon:'checkmark',
          handler: () => {
-           this.saveDrill();
+           this.SessionServ.saveSession(this.session);
          }
        },
        {
@@ -69,14 +69,12 @@ export class DrillListPage {
    actionSheet.present();
  }
 
-  saveDrill(){
-    
-  }
-
-  GoDrillPage(session:any,drill:any){
+  GoDrillPage(session:Session,drill:Drill,isNew:boolean){
+    this.SessionServ.saveSession(this.session);
     this.navCtrl.push(DrillPage, {
        session: session,
-       drill:drill
+       drill:drill,
+       isNew:isNew
     });
   }
 
@@ -99,7 +97,7 @@ export class DrillListPage {
     alert.addButton({
       text: 'Ok',
       handler: data => {
-        this.GoDrillPage(this.session,data);
+        this.GoDrillPage(this.session,data,true);
       }
     });
     alert.present();
