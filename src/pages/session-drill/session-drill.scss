@@ -1,4 +1,4 @@
-page-drill {
+session-drill {
 
 .segment-md .segment-button{
   background-color: #323232;
@@ -6,6 +6,10 @@ page-drill {
 }
 .segment-md .segment-button.segment-activated{
   background-color: #B00606;
+}
+
+.item-head .list-md .item-block .item-inner {
+  border-bottom: 1px solid #B00606;
 }
 
 }

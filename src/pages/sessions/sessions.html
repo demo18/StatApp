@@ -20,9 +20,9 @@
 <ion-content padding>
 
   <ion-list>
-    <button ion-item *ngFor="let session of sessions" (click)="GoSessionPage(session)"><ion-icon name="information-circle" item-right></ion-icon>
-      <h2>{{session.date | date:'dd/MM/yyyy'}}</h2>
-      <h3>uuu</h3>
+    <button ion-item *ngFor="let session of sessions;let i=index " (click)="GoDrillList(i)"><ion-icon name="information-circle" item-right></ion-icon>
+      <h2><b>{{session.date | date:'dd/MM/yyyy'}}</b></h2>
+      <h3>{{session.drills.length}} exercices / {{session.players.length}} joueurs</h3>
     </button>
   </ion-list>
 

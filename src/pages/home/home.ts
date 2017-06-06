@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { SessionListPage } from '../session/session-list';
+import { Sessions } from '../sessions/sessions';
+import { Drills } from '../drills/drills';
 
 @Component({
   selector: 'page-home',
@@ -13,12 +14,18 @@ export class HomePage {
   }
 
   GoSessionTraining(){
-    this.navCtrl.push(SessionListPage, {
+    this.navCtrl.push(Sessions, {
        type: "training"
     });
   }
   GoSessionMatch(){
-    this.navCtrl.push(SessionListPage, {
+    this.navCtrl.push(Sessions, {
+       type: "match"
+    });
+  }
+
+  GoParam(){
+    this.navCtrl.push(Drills, {
        type: "match"
     });
   }

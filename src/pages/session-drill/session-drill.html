@@ -12,10 +12,10 @@
 
   <ion-navbar>
     <ion-buttons end>
-      <button ion-button="" item-right=""  (click)="presentActionSheet(session)"><ion-icon name="more"></ion-icon></button>
+      <button ion-button="" item-right=""  (click)="more(drill)"><ion-icon name="more"></ion-icon></button>
     </ion-buttons>
     
-    <ion-title> {{drill.title}} - {{session.date | date:'dd/MM/yyyy'}}</ion-title>
+    <ion-title> {{drill.name}} - {{session.date | date:'dd/MM/yyyy'}}</ion-title>
   </ion-navbar>
   
   <ion-segment [(ngModel)]="saisie">
@@ -35,11 +35,14 @@
   <div *ngIf="saisie =='player'">
     <ion-list>
       <div *ngFor="let player of session.players; let i=index">
-        <ion-item (click)="toggleGroup(i)">{{player}}<ion-icon [name]="isGroupShown(i) ? 'md-arrow-dropdown' : 'md-arrow-dropup'" item-right></ion-icon>
+        <ion-item class="item-head"(click)="toggleGroup(i)">{{player}}<ion-icon [name]="isGroupShown(i) ? 'md-arrow-dropup' : 'md-arrow-dropdown'" item-right></ion-icon>
         </ion-item>
         <div *ngIf="isGroupShown(i)">
-          <div *ngFor="let stat of drill.stats">
-            <ion-item *ngIf="player == stat.player">{{stat.criteria.name}} - {{stat.value}}</ion-item>
+          <div *ngFor="let stat of drill.stats;let j=index">
+            <ion-item (click)="addStat(j)" *ngIf="player == stat.player">
+              <div float-left>{{stat.criteria.name}}</div>
+              <div float-right><b>{{stat.value}}</b></div>
+            </ion-item>
           </div>
         </div>
       </div>
@@ -52,8 +55,11 @@
         <ion-item (click)="toggleGroup(i)">{{criteria.name}}<ion-icon [name]="isGroupShown(i) ? 'md-arrow-dropdown' : 'md-arrow-dropup'" item-right></ion-icon>
         </ion-item>
         <div *ngIf="isGroupShown(i)">
-          <div *ngFor="let stat of drill.stats">
-            <ion-item *ngIf="criteria.name == stat.criteria.name">{{stat.player}} - {{stat.value}}</ion-item>
+          <div *ngFor="let stat of drill.stats;let j=index">
+            <ion-item (click)="addStat(j)" *ngIf="criteria.name == stat.criteria.name">
+              <div float-left>{{stat.player}}</div>
+              <div float-right><b>{{stat.value}}</b></div>
+            </ion-item>
           </div>
         </div>
       </div>

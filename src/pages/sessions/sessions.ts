@@ -2,9 +2,8 @@ import { Component } from '@angular/core';
 import { AlertController ,NavController,NavParams, PopoverController, Select } from 'ionic-angular';
 import { SessionPage } from './session-form';
 import { SessionService } from '../../providers/session-service';
-import { DrillListPage } from '../drill/drill-list';
-
-import {Session} from './session';
+import { SessionDrills } from '../session-drills/session-drills';
+import { _Session } from '../../models/_session';
 
 
 
@@ -16,12 +15,12 @@ import {Session} from './session';
  * on Ionic pages and navigation.
  */
 @Component({
-  selector: 'page-session-list',
-  templateUrl: 'session-list.html',
+  selector: 'sessions',
+  templateUrl: 'sessions.html',
 })
-export class SessionListPage {
+export class Sessions {
 
-  sessions:Session[];
+  sessions:_Session[];
   type:string;
 
   constructor(private alertCtrl: AlertController,private popoverCtrl: PopoverController, private SessionServ:SessionService, public navCtrl: NavController,public navParams: NavParams) {
@@ -35,9 +34,9 @@ export class SessionListPage {
        
   }
 
-  GoSessionPage(session:any,players:any[]){
-    this.navCtrl.push(DrillListPage, {
-       session: session,
+  GoDrillList(sessionId:number,players:any[]){
+    this.navCtrl.push(SessionDrills, {
+       sessionId:sessionId,
        players: players
     });
   }
@@ -63,7 +62,7 @@ export class SessionListPage {
     alert.addButton({
       text: 'Ok',
       handler: data => {
-       this.GoSessionPage(0,data);
+       this.GoDrillList(-1,data);
        console.log(data);
       }
     });

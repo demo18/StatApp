@@ -11,15 +11,15 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { ItemDetailsPage } from '../pages/item-details/item-details';
-import { PlayerListPage } from '../pages/player-list/player-list';
-//import { CriteriaListPage } from '../pages/criteria-list/criteria-list';
-import { SessionListPage } from '../pages/session/session-list';
-import { DrillListPage } from '../pages/drill/drill-list';
-import { DrillPage } from '../pages/drill/drill-form';
-import { SessionPage } from '../pages/session/session-form';
+import { CriteriaListPage } from '../pages/criteria/criteria-list';
+import { Drill } from '../pages/drill/drill';
+import { Drills } from '../pages/drills/drills';
+import { Sessions } from '../pages/sessions/sessions';
+import { SessionDrill } from '../pages/session-drill/session-drill';
+import { SessionDrills } from '../pages/session-drills/session-drills';
 import { SessionService } from '../providers/session-service';
-import { StatFormPage } from '../pages/stat/stat-form';
+import { DrillService } from '../providers/drill-service';
+
 
 
 
@@ -28,13 +28,12 @@ import { StatFormPage } from '../pages/stat/stat-form';
     MyApp,
     HomePage,
     TabsPage,
-    ItemDetailsPage,
-    PlayerListPage,
-    DrillPage,
-    SessionListPage,
-    SessionPage,
-    StatFormPage,
-    DrillListPage
+    Drill,
+    Drills,
+    SessionDrill,
+    SessionDrills,
+    Sessions,
+    CriteriaListPage
   ],
   imports: [
     BrowserModule,
@@ -49,18 +48,18 @@ import { StatFormPage } from '../pages/stat/stat-form';
     MyApp,
     HomePage,
     TabsPage,
-    ItemDetailsPage,
-    PlayerListPage,
-    DrillPage,
-    SessionListPage,
-    DrillListPage,
-    SessionPage,
-    StatFormPage
+    Drill,
+    Drills,
+    SessionDrill,
+    SessionDrills,
+    Sessions,
+    CriteriaListPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     SessionService,
+    DrillService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

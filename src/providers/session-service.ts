@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Storage } from '@ionic/storage';
-import {Session} from'../pages/session/session';
-import {Stat} from'../pages/stat/stat';
-import {Drill} from'../pages/drill/drill';
+import { _Drill } from '../models/_drill';
+import { _Session } from '../models/_session';
 import {Observable} from 'rxjs/Observable';
 
 /*
@@ -20,55 +19,49 @@ export class SessionService {
     this.sess = Observable.create(observer => {
       this.sessionsObserver = observer;
     });
-    
-    
+        
   }
 
-  sessions:Session[] = [];
+  sessions:_Session[] = [];
   sess:any;
   sessionsObserver:any;
 
-  addSession(session:Session){
-    this.sessions.push(session);
+  addSession(session:_Session):number{
+    let id = this.sessions.push(session)-1;
+    this.sessionsObserver.next(this.sessions);
+    this.save();
+    return id;
+  }
+  updateSession(session:_Session,id:number){
+    this.sessions[id] = session;
     this.sessionsObserver.next(this.sessions);
     this.save();
   }
-  updateSession(session:Session){
-    this.sessions[session.localID-1] = session;
+
+  addDrill(sessionId:number,drill:_Drill):number{ 
+    let id = this.sessions[sessionId].drills.push(drill)-1;
+    this.sessionsObserver.next(this.sessions);
+    this.save();
+    return id;
+  }
+  deleteDrill(sessionId:number,drillId:number){
+    this.sessions[sessionId].drills.splice(drillId,1);
     this.sessionsObserver.next(this.sessions);
     this.save();
   }
-  addStat(session:Session,stat:Stat){
-    this.sessions[session.localID-1].stats.push(stat);
-    this.sessionsObserver.next(this.sessions);
-    this.save();
-  }
-  addDrill(session:Session,drill:Drill){
-    drill.localID = this.sessions[session.localID-1].drills.length+1;  
-    this.sessions[session.localID-1].drills.push(drill);
-    this.sessionsObserver.next(this.sessions);
-    this.save();
+  getSession(id:number){
+    return this.sessions[id];
   }
   getSessions(){
     return this.sessions;
   }
 
-  deleteSession(session:Session){
-    this.sessions.splice(session.localID-1,1);
+  deleteSession(id:number){
+    this.sessions.splice(id,1);
     this.sessionsObserver.next(this.sessions);
     this.save();
   }
-  saveSession(session:Session){
-    //NEW SESSION
-    if(session.localID==0){
-      session.localID = this.sessions.length+1;
-      this.addSession(session);
-    }
-    //EXISTING SEESION
-    else{
-      this.updateSession(session);
-    } 
-  }
+
   save(){
     this.storage.ready().then(() => {
       this.storage.set('sessions', this.sessions);

@@ -7,7 +7,7 @@
 
   <ion-navbar>
     <ion-buttons end>
-      <button ion-button="" item-right=""  (click)="presentActionSheet(session)"><ion-icon name="more"></ion-icon></button>
+      <button ion-button="" item-right=""  (click)="more(session)"><ion-icon name="more"></ion-icon></button>
     </ion-buttons>
     
     <ion-title>{{session.date | date:'dd/MM/yyyy'}}</ion-title>
@@ -21,7 +21,7 @@
 <ion-content padding>
 
   <ion-list>
-    <button ion-item *ngFor="let drill of drills" (click)="GoDrillPage(session,drill,false)">{{drill.title}}<ion-icon name="information-circle" item-right></ion-icon></button>
+    <button ion-item *ngFor="let sessionDrill of sessionDrills;let i=index" (click)="GoDrillPage(i,sessionDrill.name)">{{sessionDrill.name}}<ion-icon name="information-circle" item-right></ion-icon></button>
   </ion-list>
 
  
