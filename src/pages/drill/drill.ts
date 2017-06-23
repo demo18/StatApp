@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController,ActionSheetController } from 'ionic-angular';
+import { PopoverController,NavController, NavParams, AlertController,ActionSheetController } from 'ionic-angular';
 import { SessionService } from '../../providers/session-service';
 import { DrillService } from '../../providers/drill-service';
 import { SessionDrill } from '../session-drill/session-drill';
+import { DrillRename } from '../drill-rename/drill-rename';
+import { CriteriaService } from '../../providers/criteria-service';
 import { _Drill } from '../../models/_drill';
 import { _Session } from '../../models/_session';
 import { _Criteria } from '../../models/_criteria';
 import { _Stat } from '../../models/_stat';
+
 
 /**
  * Generated class for the StatForm page.
@@ -24,28 +27,56 @@ export class Drill {
   sessionId:number;
   drill:_Drill;
   drillId:number;
+  drillCriterias:_Criteria[];
   criterias:_Criteria[];
 
-  constructor(private alertCtrl: AlertController,private SessionServ:SessionService,private DrillServ:DrillService,public navCtrl: NavController, public navParams: NavParams,public actionSheetCtrl: ActionSheetController) {
+  constructor(public popoverCtrl: PopoverController,private CriteriaServ:CriteriaService,private alertCtrl: AlertController,private SessionServ:SessionService,private DrillServ:DrillService,public navCtrl: NavController, public navParams: NavParams,public actionSheetCtrl: ActionSheetController) {
+    this.CriteriaServ.criteriaObs.subscribe({
+      next: data => this.criterias = data
+    });
+    this.CriteriaServ.load();
     this.sessionId = navParams.get('sessionId');
     this.session = this.SessionServ.getSession(this.sessionId);
     this.drillId = navParams.get('drillId');
     
     //NEW DRILL
     if(this.drillId==-1){
-      this.drill = new _Drill('NOM EXERCICE',[{name:'bille touche',type:'nombre'}],[],'');
-      this.save();
+      this.drill = new _Drill('NOM EXERCICE',[],[],'');
       this.rename();
-      //this.criterias = this.drill.criterias;
     }
     //EXISTING DRILL
     else{
-      this.drill = this.DrillServ.getdrill(this.drillId);
+      this.drill = this.DrillServ.getDrill(this.drillId);
     }
+    this.drillCriterias = this.drill.criterias;
+    this.criterias = this.CriteriaServ.getCriterias();
   }
 
   addCriteria(){
-
+    let alert = this.alertCtrl.create();
+    alert.setTitle('SELECTIONNER UN CRITERE');
+    alert.addInput({
+      type: 'radio',
+      label: 'NOUVEAU',
+      value: 'NOUVEAU'
+    });
+    
+    for(let i=0;i<this.criterias.length;i++){
+      alert.addInput({
+        type: 'radio',
+        label: this.criterias[i].name,
+        value: i.toString()
+      });
+    }
+    alert.addButton('Annuler');
+    alert.addButton({
+      text: 'Ok',
+      handler: data => {
+        console.log(data);
+        this.DrillServ.addCriteria(this.drillId,this.CriteriaServ.getCriteria(data));
+      }
+    });
+    alert.present();
   }
   save(){
     //NEW DRILL
@@ -58,14 +89,14 @@ export class Drill {
     } 
   }
 
-  GoDrillPage(drillId:number,drillName:string){
-    this.save();
-    this.navCtrl.push(SessionDrill, {
-       sessionId: this.sessionId,
-       drillName:drillName,
-       drillId:drillId,
-    });
-  }
+  // GoSessionDrill(drillId:number,drillName:string){
+  //   this.save();
+  //   this.navCtrl.push(SessionDrill, {
+  //      sessionId: this.sessionId,
+  //      drillName:drillName,
+  //      drillId:drillId,
+  //   });
+  // }
 
   more() {
     let actionSheet = this.actionSheetCtrl.create({
@@ -106,28 +137,42 @@ export class Drill {
   }
 
   rename() {
-    let alert = this.alertCtrl.create();
-    alert.setTitle('RENOMMER EXERCICE');
-    alert.addInput({
-      placeholder: 'NOM EXERCICE'
-    });
+    // let alert = this.alertCtrl.create();
+    // alert.setTitle('RENOMMER EXERCICE');
+    // alert.addInput({
+    //   placeholder: 'NOM EXERCICE'
+    // });
 
-    alert.addInput({
-      type: 'checkbox',
-      label: 'RECCURENT',
-      value: 'RECCURENT',
-      checked: true
-    });
+    // alert.addInput({
+    //   type: 'checkbox',
+    //   label: 'RECCURENT',
+    //   value: 'RECCURENT',
+    //   checked: true
+    // });
 
-    alert.addButton('Annuler');
-    alert.addButton({
-      text: 'Ok',
-      handler: data => {
-        this.drill.name = data[0];
-        this.save();
-      }
-    });
-    alert.present();
+    // alert.addButton('Annuler');
+    // alert.addButton({
+    //   text: 'Ok',
+    //   handler: data => {
+    //     this.drill.name = data[0];
+    //     this.save();
+    //   }
+    // });
+    // alert.present();
+    let popover = this.popoverCtrl.create(DrillRename,{},{cssClass: 'backdropOpacityPopover',showBackdrop: false, enableBackdropDismiss: false});
+    console.log(this.navCtrl.getByIndex(this.navCtrl.length()-1).name);
+      popover.present({});
+      popover.onDidDismiss((data) => {
+        console.log(data);
+	      if(data==0){
+          this.navCtrl.pop();
+        }
+        else{
+          this.drill.name = data;
+          this.save();
+        }
+      });
+      
   }
   ionViewWillLeave() {
     if(this.sessionId!=-1){

@@ -22,7 +22,7 @@ import { _Session } from '../../models/_session';
 export class SessionDrills {
 
   sessionDrills:_Drill[];
-  drills:_Drill[];
+  drills:_Drill[] = [];
   date = new Date().toISOString();
   session:_Session;
   sessionId:number;
@@ -33,6 +33,7 @@ export class SessionDrills {
       next: data => this.drills = data
     });
     this.DrillServ.load();
+    console.log(this.drills);
     this.sessionId = navParams.get('sessionId');
     
     // si new session
@@ -65,7 +66,7 @@ export class SessionDrills {
          icon:'close',
          role: 'cancel',
          handler: () => {
-  
+
          }
        }
      ]

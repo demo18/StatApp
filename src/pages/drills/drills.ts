@@ -22,12 +22,11 @@ export class Drills {
   drills:_Drill[];
 
   constructor(private alertCtrl: AlertController,private DrillServ:DrillService,public navCtrl: NavController, public navParams: NavParams,public actionSheetCtrl: ActionSheetController) {
+    console.log("drills constructor");
     this.DrillServ.drillObs.subscribe({
       next: data => this.drills = data
     });
     this.DrillServ.load();
-    
-
   }
 
   GoDrillPage(drillId:number,sessionId:number){

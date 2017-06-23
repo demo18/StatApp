@@ -11,14 +11,19 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { CriteriaListPage } from '../pages/criteria/criteria-list';
+import { Criteria } from '../pages/criteria/criteria';
+import { Criterias } from '../pages/criterias/criterias';
 import { Drill } from '../pages/drill/drill';
+import { DrillRename } from '../pages/drill-rename/drill-rename';
 import { Drills } from '../pages/drills/drills';
 import { Sessions } from '../pages/sessions/sessions';
 import { SessionDrill } from '../pages/session-drill/session-drill';
 import { SessionDrills } from '../pages/session-drills/session-drills';
 import { SessionService } from '../providers/session-service';
+import { CriteriaService } from '../providers/criteria-service';
 import { DrillService } from '../providers/drill-service';
+import { ValueTypeService } from '../providers/valueType-service';
+import { Parameters } from '../pages/parameters/parameters';
 
 
 
@@ -30,10 +35,13 @@ import { DrillService } from '../providers/drill-service';
     TabsPage,
     Drill,
     Drills,
+    DrillRename,
     SessionDrill,
     SessionDrills,
     Sessions,
-    CriteriaListPage
+    Criteria,
+    Criterias,
+    Parameters
   ],
   imports: [
     BrowserModule,
@@ -50,16 +58,21 @@ import { DrillService } from '../providers/drill-service';
     TabsPage,
     Drill,
     Drills,
+    DrillRename,
     SessionDrill,
     SessionDrills,
     Sessions,
-    CriteriaListPage
+    Criteria,
+    Criterias,
+    Parameters
   ],
   providers: [
     StatusBar,
     SplashScreen,
     SessionService,
     DrillService,
+    CriteriaService,
+    ValueTypeService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

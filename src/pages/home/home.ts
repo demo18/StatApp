@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Sessions } from '../sessions/sessions';
-import { Drills } from '../drills/drills';
+import { Parameters } from '../parameters/parameters';
 
 @Component({
   selector: 'page-home',
@@ -25,7 +25,7 @@ export class HomePage {
   }
 
   GoParam(){
-    this.navCtrl.push(Drills, {
+    this.navCtrl.push(Parameters, {
        type: "match"
     });
   }

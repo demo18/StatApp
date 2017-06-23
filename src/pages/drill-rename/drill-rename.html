@@ -1,0 +1,18 @@
+<div class="popTitle"><h2>RENOMMER EXERCICE</h2></div>
+
+<form [formGroup]="form">
+    <ion-item>
+        <ion-input text-uppercase [(ngModel)]="name" class="alert-input" placeholder="NOM EXERCICE" formControlName="name" type="text"></ion-input>
+        <ion-icon [hidden]="!form.valid" name="md-checkmark-circle" item-right></ion-icon>    
+        <ion-icon [hidden]="form.valid" name="md-close-circle" item-right></ion-icon>    
+    </ion-item>
+    <ion-item>
+        <ion-label>Exercice recurent</ion-label>
+        <ion-checkbox ></ion-checkbox>
+        <ion-icon name="md-checkmark-circle" item-right></ion-icon>
+    </ion-item>
+</form>
+<button ion-button (click)="close()">Annuler</button>
+<button ion-button (click)="ok()">OK</button>
+
+

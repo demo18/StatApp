@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams,AlertController } from 'ionic-angular';
 import { SessionService } from '../../providers/session-service';
+import { DrillService } from '../../providers/drill-service';
 import { ActionSheetController } from 'ionic-angular';
 import { _Session } from '../../models/_session';
 import { _Drill } from '../../models/_drill';
-import {_Stat} from'../../models/_stat';
+import { _Stat } from'../../models/_stat';
+import { _Criteria } from'../../models/_criteria';
 /**
  * Generated class for the SessionList page.
  *
@@ -23,10 +25,10 @@ export class SessionDrill {
   drill:_Drill = new _Drill();
   stats:_Stat[] = [];
   saisie = 'player';
-  criterias:{name:string,type:string}[] = [];
+  criterias:_Criteria[] = [];
   shownGroups:boolean[] = [];
 
-  constructor(private alertCtrl: AlertController,private SessionServ:SessionService,public navCtrl: NavController, public navParams: NavParams,public actionSheetCtrl: ActionSheetController) {
+  constructor(private DrillServ:DrillService,private alertCtrl: AlertController,private SessionServ:SessionService,public navCtrl: NavController, public navParams: NavParams,public actionSheetCtrl: ActionSheetController) {
 
     //view var init
     this.sessionId = navParams.get('sessionId');
@@ -35,7 +37,7 @@ export class SessionDrill {
     console.log(this.session);
     //NEW DRILL
     if(navParams.get('drillId')==-1){
-      this.drill = new _Drill(navParams.get('drillName'),[{name:'bille touche',type:'nombre'}],[]);
+      this.drill = this.DrillServ.getDrillByName(navParams.get('drillName')); 
       this.drillId =  this.SessionServ.addDrill(this.sessionId,this.drill);
       this.criterias = this.drill.criterias;
       for(var i=0; i<this.session.players.length; i++){

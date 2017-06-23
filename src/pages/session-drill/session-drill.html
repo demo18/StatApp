@@ -15,7 +15,7 @@
       <button ion-button="" item-right=""  (click)="more(drill)"><ion-icon name="more"></ion-icon></button>
     </ion-buttons>
     
-    <ion-title> {{drill.name}} - {{session.date | date:'dd/MM/yyyy'}}</ion-title>
+    <ion-title text-uppercase> {{drill.name}} - {{session.date | date:'dd/MM/yyyy'}}</ion-title>
   </ion-navbar>
   
   <ion-segment [(ngModel)]="saisie">

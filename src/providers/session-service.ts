@@ -73,7 +73,12 @@ export class SessionService {
         if(len>0){
           this.storage.get('sessions').then((val) => {
             console.log('sessions:', val);
-            this.sessions = val;
+            if(val!=null){
+              this.sessions = val;
+            }
+            else{
+              this.sessions = [];
+            }
             this.sessionsObserver.next(this.sessions);
           });
         }

@@ -1,6 +1,5 @@
 {
   "name": "StatApp",
-  "app_id": "",
-  "v2": true,
-  "typescript": true
+  "app_id": "5226859d",
+  "type": "ionic-angular"
 }

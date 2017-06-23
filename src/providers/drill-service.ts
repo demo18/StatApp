@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 import { Storage } from '@ionic/storage';
 import { _Drill } from '../models/_drill';
 import { _Session } from '../models/_session';
+import { _Criteria } from '../models/_criteria';
 import {Observable} from 'rxjs/Observable';
 
 /*
@@ -19,7 +20,7 @@ export class DrillService {
     this.drillObs = Observable.create(observer => {
       this.drillsObserver = observer;
     });
-    
+    console.log("drill service contructeur");
   }
 
   drills:_Drill[] = [];
@@ -27,7 +28,14 @@ export class DrillService {
   drillsObserver:any;
 
   addDrill(drill:_Drill):number{
+    console.log(this.drills); 
     let id = this.drills.push(drill)-1;
+    //this.drillsObserver.next(this.drills);
+    this.save();
+    return id;
+  }
+  addCriteria(drillId:number,criteria:_Criteria):number{
+    let id = this.drills[drillId].criterias.push(criteria)-1;
     //this.drillsObserver.next(this.drills);
     this.save();
     return id;
@@ -43,17 +51,18 @@ export class DrillService {
     //this.drillsObserver.next(this.drills);
     this.save();
   }
-  getdrill(id:number){
+  getDrill(id:number){
     return this.drills[id];
   }
-  getdrills(){
-    return this.drills;
+  getDrillByName(name:string){
+    for(let i=0;i<this.drills.length;i++){
+      if(this.drills[i].name==name){
+        return this.drills[i];
+      }
+    }
   }
-
-  deletedrill(id:number){
-    this.drills.splice(id,1);
-    //this.drillsObserver.next(this.drills);
-    this.save();
+  getDrills(){
+    return this.drills;
   }
 
   save(){
@@ -67,7 +76,12 @@ export class DrillService {
         if(len>0){
           this.storage.get('drills').then((val) => {
             console.log('drills:', val);
-            this.drills = val;
+            if(val!=null){
+              this.drills = val;
+            }
+            else{
+              this.drills = [];
+            }
             this.drillsObserver.next(this.drills);
           });
         }

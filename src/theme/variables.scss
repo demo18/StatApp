@@ -90,6 +90,10 @@ $segment-button-md-line-height:2;
 $segment-button-md-font-size:1.4 rem;
 
 
+
+$popover-md-width:280px;
+
+
 img{
     height: 70px;
 }
@@ -103,4 +107,9 @@ img{
   padding: 5px 0px 5px 15px;
   height:28px;
 }
+
+.popTitle{
+  text-align: center;
+}
+
 
